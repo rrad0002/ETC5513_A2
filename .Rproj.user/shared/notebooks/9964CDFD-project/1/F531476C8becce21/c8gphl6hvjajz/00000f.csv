@@ -1,0 +1,38 @@
+"0","# Set file paths"
+"0","train_X_file <- ""mimic_train_X.csv"""
+"0","train_y_file <- ""mimic_train_y.csv"""
+"0",""
+"0","# Load the training features and labels"
+"0","train_X <- read_csv(train_X_file)"
+"2","[38;5;232mNew names:
+[36m•[38;5;232m `` -> `...1`[39m
+"
+"2","[1mRows: [22m[34m20885[39m [1mColumns: [22m[34m40[39m
+"
+"2","[36m──[39m [1mColumn specification[22m [36m────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m   (9): GENDER, ADMISSION_TYPE, INSURANCE, RELIGION, MARITAL_STATUS, ETHNICITY, DIAGN...
+[32mdbl[39m  (29): ...1, subject_id, hadm_id, icustay_id, HeartRate_Min, HeartRate_Max, HeartRat...
+[34mdttm[39m  (2): DOB, ADMITTIME
+"
+"2","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"
+"0","train_y <- read_csv(train_y_file)"
+"2","[38;5;232mNew names:
+[36m•[38;5;232m `` -> `...1`[39m
+"
+"2","[1mRows: [22m[34m20885[39m [1mColumns: [22m[34m3[39m
+"
+"2","[36m──[39m [1mColumn specification[22m [36m────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[32mdbl[39m (3): ...1, icustay_id, HOSPITAL_EXPIRE_FLAG
+"
+"2","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"
+"0","# Merge training features and labels using icustay_id"
+"0","train_df <- inner_join(train_X, train_y, by = ""icustay_id"")"
+"0","#View(train_df)"

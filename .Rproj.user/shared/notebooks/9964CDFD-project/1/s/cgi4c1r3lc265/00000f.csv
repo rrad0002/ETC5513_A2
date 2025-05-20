@@ -1,0 +1,15 @@
+"0","library(dplyr)"
+"0",""
+"0","# Calculate AGE in years"
+"0","train_df <- train_df %>%"
+"0","  mutate(AGE = as.numeric(difftime(ADMITTIME, DOB, units = ""days"")) / 365.25) %>%"
+"0","  filter(AGE >= 0 & AGE <= 120)  # Only keep realistic ages"
+"0",""
+"0","# Drop unnecessary columns (if needed)"
+"0","train_df <- train_df %>%"
+"0","  select(-c(DOB, ADMITTIME, Unnamed..0))"
+"2","G1;[1m[33mError[39m in `select()`:[22m
+[33m![39m Can't select columns that don't exist.
+[31m✖[39m Column `Unnamed..0` doesn't exist.
+[90mRun `]8;;x-r-run:rlang::last_trace()rlang::last_trace()]8;;` to see where the error occurred.[39m
+g"

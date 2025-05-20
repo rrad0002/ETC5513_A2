@@ -1,0 +1,15 @@
+"0","# Remove leading and trailing spaces"
+"0","train_df$DOB <- trimws(train_df$DOB)"
+"0","train_df$ADMITTIME <- trimws(train_df$ADMITTIME)"
+"0",""
+"0","# Force parsing with a more flexible date format"
+"0","train_df$DOB <- parse_date_time(train_df$DOB, orders = c(""Ymd HMS"", ""Ymd HM"", ""Ymd H"", ""Ymd"", ""ymd"", ""Y-m-d H:M:S""))"
+"0","train_df$ADMITTIME <- parse_date_time(train_df$ADMITTIME, orders = c(""Ymd HMS"", ""Ymd HM"", ""Ymd H"", ""Ymd"", ""ymd"", ""Y-m-d H:M:S""))"
+"0",""
+"0","# Check for any remaining parsing issues"
+"0","sum(is.na(train_df$DOB))"
+"1","[1] 0
+"
+"0","sum(is.na(train_df$ADMITTIME))"
+"1","[1] 0
+"

@@ -1,0 +1,64 @@
+---
+title: "project"
+author: "Rachna Radhakrishna"
+date: '`r Sys.Date()`'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# Load the libraries
+library(tidyverse)
+library(lubridate)
+
+```
+
+
+```{r}
+# Set file paths
+train_X_file <- "mimic_train_X.csv"
+train_y_file <- "mimic_train_y.csv"
+
+# Load the training features and labels
+train_X <- read_csv(train_X_file)
+train_y <- read_csv(train_y_file)
+
+# Merge training features and labels using icustay_id
+train_df <- inner_join(train_X, train_y, by = "icustay_id")
+#View(train_df)
+```
+
+```{r}
+# Remove leading and trailing spaces
+train_df$DOB <- trimws(train_df$DOB)
+train_df$ADMITTIME <- trimws(train_df$ADMITTIME)
+
+# Force parsing with a more flexible date format
+train_df$DOB <- parse_date_time(train_df$DOB, orders = c("Ymd HMS", "Ymd HM", "Ymd H", "Ymd", "ymd", "Y-m-d H:M:S"))
+train_df$ADMITTIME <- parse_date_time(train_df$ADMITTIME, orders = c("Ymd HMS", "Ymd HM", "Ymd H", "Ymd", "ymd", "Y-m-d H:M:S"))
+
+# Check for any remaining parsing issues
+sum(is.na(train_df$DOB))
+sum(is.na(train_df$ADMITTIME))
+
+```
+```{r}
+library(dplyr)
+
+# Calculate AGE in years
+train_df <- train_df %>%
+  mutate(AGE = as.numeric(difftime(ADMITTIME, DOB, units = "days")) / 365.25) %>%
+  filter(AGE >= 0 & AGE <= 120)  # Only keep realistic ages
+
+# Drop unnecessary columns (if needed)
+train_df <- train_df %>%
+  select(-c(DOB, ADMITTIME, Unnamed..0))
+
+# Check the distribution of AGE to confirm the correction
+summary(train_df$AGE)
+
+```
+
