@@ -17,8 +17,10 @@ Quarto enables you to weave together content and executable code into a finished
 print("Thank you for being an awesome Professor!")
 ```
 
-```{r step_5_conflict}
-## This is a conflicting chunk directly added and edited in main to create a conflict with testbranch
-print("Please consider this assessment to be evaluated for grades")
+```{r fix_conflict_S6}
+##Resolving the conflict with a new chunk
+print("Thank you for your time and patience")
 
 ```
+
+The above section was added manually to resolve the merge conflict between main and testbranch and combine ideas from both branches.
